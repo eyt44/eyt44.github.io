@@ -237,6 +237,9 @@
     [data-theme="light"] #g-hint { color: rgba(0,0,0,0.18); }
     #g-hint.gone { opacity: 0; }
 
+    /* Sync transition */
+    #g-sync { position:fixed; pointer-events:none; width:0; height:0; opacity:0; transition:opacity .35s var(--ease); }
+
     /* ── REVEAL ANIMATION ── */
     .reveal { opacity:0; transform:translateY(18px); transition:opacity .55s var(--ease),transform .55s var(--ease); }
     .reveal.visible { opacity:1; transform:none; }
@@ -470,6 +473,7 @@ window.addEventListener('scroll',()=>{
     const next=root.dataset.theme==='dark'?'light':'dark';
     root.classList.add('theme-switching');
     root.dataset.theme=next;
+    document.getElementById('g-sync').style.opacity = next==='light' ? '1' : '0';
     btn.textContent=next==='dark'?'◐':'◑';
     localStorage.setItem('et-theme',next);
     setTimeout(()=>root.classList.remove('theme-switching'), 400);
@@ -554,32 +558,8 @@ window.addEventListener('scroll',()=>{
      Single themeT (0=dark, 1=light) drives ALL canvas
      colors so the whole scene fades as one unit.
   ─────────────────────────────────────────────────── */
-  const THEME_DUR = 350;
-  let themeT    = document.documentElement.dataset.theme === 'light' ? 1 : 0;
-  let tFrom     = themeT;
-  let tTo       = themeT;
-  let tStart    = -1;
-  let lastTheme = document.documentElement.dataset.theme || 'dark';
-
-  function easeT(x){ return 1-(1-x)*(1-x); }
-
-  function getT(){
-    if(tStart < 0) return tTo;
-    const p = easeT(Math.min((performance.now()-tStart)/THEME_DUR, 1));
-    const v = tFrom + (tTo - tFrom) * p;
-    if(p >= 1){ tStart = -1; themeT = tTo; }
-    return v;
-  }
-
-  function checkTheme(){
-    const theme = document.documentElement.dataset.theme || 'dark';
-    if(theme !== lastTheme){
-      tFrom  = getT();
-      tTo    = theme === 'light' ? 1 : 0;
-      tStart = performance.now();
-      lastTheme = theme;
-    }
-  }
+  const syncEl = document.getElementById('g-sync');
+  function getT(){ return parseFloat(getComputedStyle(syncEl).opacity); }
 
   function lp(a,b,t){ return a+(b-a)*t; }
   function lc(d,l,t){ return [Math.round(lp(d[0],l[0],t)), Math.round(lp(d[1],l[1],t)), Math.round(lp(d[2],l[2],t))]; }
@@ -746,7 +726,7 @@ window.addEventListener('scroll',()=>{
     cx.fillStyle=c.scan;for(let y=0;y<H;y+=4)cx.fillRect(0,y,W,2);
   }
 
-  (function loop(){checkTheme();update();draw();requestAnimationFrame(loop);})();
+  (function loop(){update();draw();requestAnimationFrame(loop);})();
 })();
 </script>
 </body>
