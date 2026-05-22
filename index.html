@@ -7,7 +7,7 @@
   <title>Emily Tian</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -22,9 +22,7 @@
       --accent:     #3d7a35;
       --accent-hl:  #4e9e44;
       --accent-dim: rgba(61,122,53,0.14);
-      --serif:      'DM Serif Display', Georgia, serif;
       --mono:       'DM Mono', 'Courier New', monospace;
-      --sans:       'Outfit', system-ui, sans-serif;
       --ease:       cubic-bezier(0.4,0,0.2,1);
     }
     [data-theme="light"] {
@@ -44,7 +42,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: var(--sans);
+      font-family: var(--mono);
       font-weight: 300;
       line-height: 1.7;
       cursor: none;
@@ -81,7 +79,7 @@
     #nav-toggle.open .ham:nth-child(2) { opacity:0; transform:scaleX(0); }
     #nav-toggle.open .ham:nth-child(3) { transform:translateY(-5.5px) rotate(-45deg); }
 
-    /* ── SIDEBAR (glass, slides in) ── */
+    /* ── SIDEBAR ── */
     #sidebar-overlay { position:fixed; inset:0; z-index:500; display:none; }
     #sidebar-overlay.open { display:block; }
     #sidebar {
@@ -132,11 +130,11 @@
     }
     .hero-eyebrow::before { content:''; width:22px; height:1px; background:var(--accent); display:inline-block; flex-shrink:0; }
     h1.hero-name {
-      font-family:var(--serif); font-size:clamp(3.5rem,7.5vw,6.5rem);
-      line-height:1.0; font-weight:400; margin-bottom:1.75rem; letter-spacing:-.01em;
+      font-family:var(--mono); font-size:clamp(2.8rem,6vw,5.2rem);
+      line-height:1.08; font-weight:400; margin-bottom:1.75rem; letter-spacing:-.02em;
     }
-    h1.hero-name em { font-style:italic; color:var(--accent); }
-    .hero-bio { font-size:1.05rem; color:var(--text2); max-width:500px; line-height:1.8; margin-bottom:2.75rem; }
+    h1.hero-name em { font-style:normal; color:var(--accent); }
+    .hero-bio { font-family:var(--mono); font-size:.93rem; color:var(--text2); max-width:500px; line-height:1.8; margin-bottom:2.75rem; font-weight:300; }
     .hero-cta { display:flex; gap:1rem; flex-wrap:wrap; }
     .btn {
       font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
@@ -151,11 +149,11 @@
     .project { margin-bottom:3rem; padding-bottom:3rem; border-bottom:1px solid var(--border); }
     .project:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
     .project-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:.8rem; gap:1rem; flex-wrap:wrap; }
-    .project h3 { font-family:var(--serif); font-size:1.35rem; font-weight:400; }
+    .project h3 { font-family:var(--mono); font-size:1.05rem; font-weight:500; }
     .project h3 a { color:var(--text); text-decoration:none; transition:color .2s; }
     .project h3 a:hover { color:var(--accent); }
     .project-year { font-family:var(--mono); font-size:.68rem; color:var(--muted); letter-spacing:.07em; flex-shrink:0; }
-    .project p { color:var(--text2); font-size:.93rem; line-height:1.82; margin-bottom:1.1rem; }
+    .project p { font-family:var(--mono); color:var(--text2); font-size:.84rem; line-height:1.82; margin-bottom:1.1rem; font-weight:300; }
     .project-stack { display:flex; flex-wrap:wrap; gap:.35rem; }
     .tag { font-family:var(--mono); font-size:.65rem; color:var(--accent); background:var(--accent-dim); padding:.2rem .5rem; border-radius:2px; }
 
@@ -167,8 +165,8 @@
     }
     .about-photo-placeholder span { font-family:var(--mono); font-size:.6rem; color:var(--muted); text-align:center; }
     .about-photo { width:100%; max-width:180px; aspect-ratio:3/4; object-fit:cover; border-radius:2px; margin-bottom:2.5rem; filter:grayscale(20%); }
-    .about-text p { color:var(--text2); line-height:1.88; margin-bottom:1.3rem; font-size:.93rem; }
-    .about-text p:first-child { color:var(--text); font-size:.97rem; }
+    .about-text p { font-family:var(--mono); color:var(--text2); line-height:1.88; margin-bottom:1.3rem; font-size:.84rem; font-weight:300; }
+    .about-text p:first-child { color:var(--text); font-size:.88rem; }
     .skills-grid { display:grid; grid-template-columns:1fr 1fr; gap:.5rem; margin-top:2.25rem; padding-top:2rem; border-top:1px solid var(--border); }
     .skill-item { font-family:var(--mono); font-size:.72rem; color:var(--muted); display:flex; align-items:center; gap:.5rem; }
     .skill-item::before { content:'▸'; color:var(--accent); }
@@ -181,31 +179,24 @@
     }
     .post-item:first-of-type { border-top:1px solid var(--border); }
     .post-item:hover { opacity:.65; }
-    .post-title { font-family:var(--serif); font-size:1.1rem; font-weight:400; margin-bottom:.25rem; }
+    .post-title { font-family:var(--mono); font-size:.95rem; font-weight:500; margin-bottom:.25rem; }
     .post-meta { font-family:var(--mono); font-size:.67rem; color:var(--muted); letter-spacing:.06em; }
     .post-date { font-family:var(--mono); font-size:.67rem; color:var(--muted); white-space:nowrap; }
     .all-posts { font-family:var(--mono); font-size:.7rem; color:var(--accent); text-decoration:none; letter-spacing:.1em; margin-top:2rem; display:inline-block; transition:letter-spacing .2s; }
     .all-posts:hover { letter-spacing:.14em; }
 
     /* ── CONTACT ── */
-    .contact-note { color:var(--text2); font-size:.93rem; line-height:1.8; max-width:440px; margin-bottom:2.25rem; }
+    .contact-note { font-family:var(--mono); color:var(--text2); font-size:.84rem; line-height:1.8; max-width:440px; margin-bottom:2.25rem; font-weight:300; }
     .contact-list { display:flex; flex-direction:column; gap:.9rem; }
-    .contact-link { display:flex; align-items:baseline; gap:1.25rem; text-decoration:none; color:var(--text2); font-size:.92rem; transition:color .2s; }
+    .contact-link { display:flex; align-items:baseline; gap:1.25rem; text-decoration:none; color:var(--text2); font-size:.84rem; transition:color .2s; font-family:var(--mono); }
     .contact-link:hover { color:var(--text); }
     .contact-label { font-family:var(--mono); font-size:.66rem; color:var(--muted); letter-spacing:.09em; width:56px; flex-shrink:0; }
 
-    /* ────────────────────────────────────────────────
-       MOUNTAIN BACKGROUND
-       Canvas is in normal document flow, after <main>.
-       Nothing sits on top of it — clicks reach it directly.
-       Sky color matches --bg so it blends seamlessly.
-       Width: 100% of page. Height: fixed 380px.
-       Internal canvas: 1440×380 = full mountain visible at once.
-    ──────────────────────────────────────────────── */
+    /* ── MOUNTAIN BACKGROUND ── */
     #mountain-wrap {
       position: relative;
       width: 100%;
-      background: var(--bg); /* sky matches page bg */
+      background: var(--bg);
       transition: background .35s var(--ease);
     }
     #game-canvas {
@@ -232,7 +223,7 @@
     #g-bx { position:absolute; top:7px; right:8px; background:none; border:none; color:var(--muted); font:10px/1 var(--mono); cursor:pointer; padding:2px 4px; transition:color .2s; }
     #g-bx:hover { color:var(--accent); }
 
-    /* Touch controls (mobile only) */
+    /* Touch controls */
     #g-controls { position:absolute; bottom:10px; left:12px; display:flex; gap:6px; z-index:2; }
     #g-jump    { position:absolute; bottom:10px; right:12px; z-index:2; }
     .g-btn {
@@ -248,7 +239,7 @@
     /* Hint text */
     #g-hint {
       position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-      font: 8px/1 var(--mono); color: rgba(var(--bg-rgb), 0); /* invisible until theme adjusts */
+      font: 8px/1 var(--mono); color: rgba(var(--bg-rgb), 0);
       letter-spacing: .1em; white-space: nowrap; pointer-events: none; z-index: 2;
       transition: opacity .4s;
     }
@@ -271,7 +262,7 @@
       .s-label { display:none; }
       body { cursor:auto; }
       #cur-dot,#cur-ring { display:none; }
-      h1.hero-name { font-size:2.75rem; }
+      h1.hero-name { font-size:2.2rem; }
       .hero-cta { flex-direction:column; }
       #game-canvas { height:220px; }
     }
@@ -377,7 +368,6 @@
               <span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">NLP</span><span class="tag">Tableau</span>
             </div>
           </article>
-          <!-- [ Add more projects ] -->
         </div>
       </div>
     </div>
@@ -402,7 +392,6 @@
             Previously I spent a summer at Capital Fund Management.</p>
             <p>Outside of that: I play cello (and the charmingly niche viola da gamba), have strong opinions
             about SET strategy, and am always up for a long walk somewhere with a good view at the top.</p>
-            <!-- [ Edit ] -->
           </div>
           <div class="skills-grid">
             <div class="skill-item">Python</div>
@@ -465,15 +454,6 @@
 
 </main>
 
-<!--
-  ══════════════════════════════════════════════════
-  MOUNTAIN BACKGROUND
-  In normal document flow — directly after content.
-  Nothing sits on top of it. Click it, use keys/buttons.
-  Sky color = var(--bg), so it blends into the page.
-  Internal canvas: 1440×380 = whole range visible at once.
-  ══════════════════════════════════════════════════
--->
 <div id="mountain-wrap">
   <div id="g-bub">
     <button id="g-bx">✕</button>
@@ -559,51 +539,29 @@ window.addEventListener('scroll',()=>{
 
 /* ══════════════════════════════════════════════
    MOUNTAIN GAME
-   W=1440 = full world width, no camera scroll.
-   The whole mountain range is always visible.
-   Sky color matches --bg via C() theme function.
-
-   ▼▼▼ REPLACE PEAKS WITH YOUR REAL MOUNTAINS ▼▼▼
-   Counter backend for GitHub Pages — swap storage calls for:
-     GET https://api.countapi.xyz/get/emily-tian/{key}
-     HIT https://api.countapi.xyz/hit/emily-tian/{key}
 ══════════════════════════════════════════════ */
 (function(){
   const cv=document.getElementById('game-canvas');
   if(!cv)return;
   const cx=cv.getContext('2d');
   const W=1440, H=380, B=16, COLS=90;
-  // World width = W = 1440, so no camera scroll needed
 
-  /* 90 cols × 16px = 1440px
-     Heights designed for H=380, max block h=18 (top at y=92)
-     Pattern: tallest right, 2nd tallest left, shortest inner
-     Player starts center valley (col 43) */
   const HMAP=[
-    // Peak 1 (0-16): h=15, 2nd tallest, leftmost
     4,5,7,9,11,12,14,15,15,13,11,9,7,6,5,5,4,
-    // Valley 1 (17-23)
     4,3,3,3,3,3,4,
-    // Peak 2 (24-33): h=9, shortest
     4,5,6,8,9,9,7,6,5,4,
-    // Center valley (34-52): player starts col 43
     4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,
-    // Peak 3 (53-65): h=12, 3rd tallest
     4,5,7,9,10,12,12,10,9,7,5,4,4,
-    // Valley 2 (66-72)
     4,3,3,3,3,3,4,
-    // Peak 4 (73-89): h=18, tallest, rightmost
     4,5,7,9,11,13,15,17,18,18,17,15,13,11,9,7,5
   ];
 
-  /* ▼▼▼ REPLACE WITH YOUR MOUNTAINS ▼▼▼ */
   const PEAKS=[
     {id:0,cols:[7,8],  flag:7,  name:"[ Mountain 1 — leftmost ]",  fact:"[ Fun fact about this climb ]",key:"et_p0"},
     {id:1,cols:[28,29],flag:28, name:"[ Mountain 2 — shortest ]",   fact:"[ Fun fact about this climb ]",key:"et_p1"},
     {id:2,cols:[58,59],flag:58, name:"[ Mountain 3 — 3rd tallest ]",fact:"[ Fun fact about this climb ]",key:"et_p2"},
     {id:3,cols:[81,82],flag:81, name:"[ Mountain 4 — tallest ]",    fact:"[ Fun fact about this climb ]",key:"et_p3"},
   ];
-  /* ▲▲▲ */
 
   const counts=[0,0,0,0];
   async function loadAll(){
@@ -618,7 +576,6 @@ window.addEventListener('scroll',()=>{
   }
   loadAll();
 
-  /* Theme-aware colors — sky always = var(--bg) for seamless blending */
   function C(){
     const L=document.documentElement.dataset.theme==='light';
     return{
@@ -670,7 +627,6 @@ window.addEventListener('scroll',()=>{
   function reset(){pl=mkPl();fr=0;for(let i=0;i<4;i++)wt[i]=0;}
   reset();
 
-  // Click canvas to focus → keys work
   cv.addEventListener('click',()=>{
     cv.focus();
     document.getElementById('g-hint').classList.add('gone');
@@ -681,7 +637,6 @@ window.addEventListener('scroll',()=>{
   });
   cv.addEventListener('keyup',e=>{delete ks[e.code];});
 
-  // Touch buttons
   function bindBtn(id,code){
     const el=document.getElementById(id);if(!el)return;
     el.addEventListener('pointerdown',e=>{ks[code]=true;el.classList.add('held');e.preventDefault();cv.focus();});
@@ -711,7 +666,6 @@ window.addEventListener('scroll',()=>{
     if(pl.y>H+60)reset();
     if(pl.gnd&&Math.abs(pl.vx)>0.4&&fr%8===0)pl.af=(pl.af+1)%4;
 
-    // No camera — world width = canvas width
     const col=Math.floor((pl.x+9)/B);
     for(let i=0;i<4;i++){
       if(pl.gnd&&PEAKS[i].cols.includes(col)){
@@ -769,14 +723,12 @@ window.addEventListener('scroll',()=>{
     }
   }
 
-  // Stars placed at fixed world positions
   const STARS=Array.from({length:28},(_,i)=>({x:(i*197+43)%W,y:(i*79+11)%(H*0.45),s:i%5===0?1.5:1}));
 
   function draw(){
     const c=C();
     cx.fillStyle=c.sky;cx.fillRect(0,0,W,H);
     for(const s of STARS){cx.fillStyle=c.star;cx.fillRect(s.x,s.y,s.s,s.s);}
-    // Crescent moon
     cx.fillStyle=c.moon;cx.beginPath();cx.arc(1360,38,18,0,Math.PI*2);cx.fill();
     cx.fillStyle=c.mhid;cx.beginPath();cx.arc(1369,33,14,0,Math.PI*2);cx.fill();
     dTerrain(c);dFlags(c);dChar(c);
