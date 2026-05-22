@@ -38,6 +38,17 @@
       --accent-dim: rgba(45,90,39,0.12);
     }
 
+    /* ── THEME TRANSITION — only active during the switch ── */
+    html.theme-switching *,
+    html.theme-switching *::before,
+    html.theme-switching *::after {
+      transition:
+        background-color .35s var(--ease),
+        color            .35s var(--ease),
+        border-color     .35s var(--ease),
+        opacity          .35s var(--ease) !important;
+    }
+
     html { scroll-behavior: smooth; }
     body {
       background: var(--bg);
@@ -457,8 +468,11 @@ window.addEventListener('scroll',()=>{
   if(saved){root.dataset.theme=saved;btn.textContent=saved==='dark'?'◐':'◑';}
   btn.addEventListener('click',()=>{
     const next=root.dataset.theme==='dark'?'light':'dark';
-    root.dataset.theme=next;btn.textContent=next==='dark'?'◐':'◑';
+    root.classList.add('theme-switching');
+    root.dataset.theme=next;
+    btn.textContent=next==='dark'?'◐':'◑';
     localStorage.setItem('et-theme',next);
+    setTimeout(()=>root.classList.remove('theme-switching'), 400);
   });
 })();
 
@@ -536,33 +550,70 @@ window.addEventListener('scroll',()=>{
   }
   loadAll();
 
+  /* ── THEME TRANSITION ─────────────────────────────
+     Single themeT (0=dark, 1=light) drives ALL canvas
+     colors so the whole scene fades as one unit.
+  ─────────────────────────────────────────────────── */
+  const THEME_DUR = 350;
+  let themeT    = document.documentElement.dataset.theme === 'light' ? 1 : 0;
+  let tFrom     = themeT;
+  let tTo       = themeT;
+  let tStart    = -1;
+  let lastTheme = document.documentElement.dataset.theme || 'dark';
+
+  function easeT(x){ return 1-(1-x)*(1-x); }
+
+  function getT(){
+    if(tStart < 0) return tTo;
+    const p = easeT(Math.min((performance.now()-tStart)/THEME_DUR, 1));
+    const v = tFrom + (tTo - tFrom) * p;
+    if(p >= 1){ tStart = -1; themeT = tTo; }
+    return v;
+  }
+
+  function checkTheme(){
+    const theme = document.documentElement.dataset.theme || 'dark';
+    if(theme !== lastTheme){
+      tFrom  = getT();
+      tTo    = theme === 'light' ? 1 : 0;
+      tStart = performance.now();
+      lastTheme = theme;
+    }
+  }
+
+  function lp(a,b,t){ return a+(b-a)*t; }
+  function lc(d,l,t){ return [Math.round(lp(d[0],l[0],t)), Math.round(lp(d[1],l[1],t)), Math.round(lp(d[2],l[2],t))]; }
+  function rc(c){ return `rgb(${c[0]},${c[1]},${c[2]})`; }
+  function ra(c,a){ return `rgba(${c[0]},${c[1]},${c[2]},${a.toFixed(4)})`; }
+
   function C(){
-    const L=document.documentElement.dataset.theme==='light';
+    const t = getT();
+    const sky = lc([13,13,13],   [245,243,239], t);
     return{
-      sky:  L?'#f5f3ef':'#0d0d0d',
-      b0:   L?'#cac6be':'#1a1a1a',
-      b1:   L?'#bfbbb3':'#1e1e1e',
-      b2:   L?'#b3afa7':'#232323',
-      gLow: L?'#2d5a27':'#2d5a27',
-      gMid: L?'#358a2e':'#2e6428',
-      gHi:  L?'#4a6850':'#4a6850',
-      gHL:  L?'#52a846':'#3d7a35',
-      gPk:  L?'#3d8c35':'#3d8c35',
-      gDn:  L?'#5fba52':'#5fba52',
-      gDH:  L?'#70cc62':'#70cc62',
-      snow: L?'rgba(255,255,255,0.55)':'rgba(220,240,220,0.32)',
-      tuft: L?'#2a5225':'#3d7a35',
-      rock: L?'rgba(0,0,0,0.04)':'rgba(255,255,255,0.015)',
-      grid: L?'rgba(0,0,0,0.1)':'rgba(0,0,0,0.4)',
-      star: L?'rgba(100,80,50,0.16)':'rgba(255,255,255,0.2)',
-      moon: L?'rgba(220,195,120,0.14)':'rgba(255,255,255,0.04)',
-      mhid: L?'#f5f3ef':'#0d0d0d',
-      skin: L?'#c07840':'#f5d5b8',
-      hat:  L?'#4a3020':'#3d2b1f',
+      sky:  rc(sky),
+      mhid: rc(sky),
+      b0:   rc(lc([26,26,26],   [202,198,190], t)),
+      b1:   rc(lc([30,30,30],   [191,187,179], t)),
+      b2:   rc(lc([35,35,35],   [179,175,167], t)),
+      gLow: rc(lc([45,90,39],   [45,90,39],    t)),
+      gMid: rc(lc([46,100,40],  [53,138,46],   t)),
+      gHi:  rc(lc([74,104,80],  [74,104,80],   t)),
+      gHL:  rc(lc([61,122,53],  [82,168,70],   t)),
+      gPk:  rc(lc([61,140,53],  [61,140,53],   t)),
+      gDn:  rc(lc([95,186,82],  [95,186,82],   t)),
+      gDH:  rc(lc([112,204,98], [112,204,98],  t)),
+      snow: ra(lc([220,240,220],[255,255,255],  t), lp(0.32,0.55,t)),
+      tuft: rc(lc([61,122,53],  [42,82,37],    t)),
+      rock: ra(lc([255,255,255],[0,0,0],        t), lp(0.015,0.04,t)),
+      grid: ra([0,0,0],                            lp(0.4, 0.1,  t)),
+      star: ra(lc([255,255,255],[100,80,50],    t), lp(0.2, 0.16, t)),
+      moon: ra(lc([255,255,255],[220,195,120],  t), lp(0.04,0.14, t)),
+      skin: rc(lc([245,213,184],[192,120,64],   t)),
+      hat:  rc(lc([61,43,31],   [74,48,32],     t)),
       jkt:  '#2d5a27',
       pk2:  '#1a3d16',
-      legs: L?'#484440':'#3a3a3a',
-      scan: L?'rgba(0,0,0,0.005)':'rgba(0,0,0,0.018)',
+      legs: rc(lc([58,58,58],   [72,68,64],     t)),
+      scan: ra([0,0,0],                            lp(0.018,0.005,t)),
     };
   }
 
@@ -695,7 +746,7 @@ window.addEventListener('scroll',()=>{
     cx.fillStyle=c.scan;for(let y=0;y<H;y+=4)cx.fillRect(0,y,W,2);
   }
 
-  (function loop(){update();draw();requestAnimationFrame(loop);})();
+  (function loop(){checkTheme();update();draw();requestAnimationFrame(loop);})();
 })();
 </script>
 </body>
