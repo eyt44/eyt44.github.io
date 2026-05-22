@@ -121,29 +121,8 @@
       writing-mode:vertical-rl; transform:rotate(180deg); display:block;
     }
 
-    /* ── HERO ── */
-    #hero .s-wrap { padding-top:max(11rem,22vh); padding-bottom:6rem; max-width:900px; }
-    .hero-eyebrow {
-      font-family:var(--mono); font-size:.72rem; color:var(--accent);
-      letter-spacing:.15em; text-transform:uppercase;
-      margin-bottom:1.75rem; display:flex; align-items:center; gap:.85rem;
-    }
-    .hero-eyebrow::before { content:''; width:22px; height:1px; background:var(--accent); display:inline-block; flex-shrink:0; }
-    h1.hero-name {
-      font-family:var(--mono); font-size:clamp(2.8rem,6vw,5.2rem);
-      line-height:1.08; font-weight:400; margin-bottom:1.75rem; letter-spacing:-.02em;
-    }
-    h1.hero-name em { font-style:normal; color:var(--accent); }
-    .hero-bio { font-family:var(--mono); font-size:.93rem; color:var(--text2); max-width:500px; line-height:1.8; margin-bottom:2.75rem; font-weight:300; }
-    .hero-cta { display:flex; gap:1rem; flex-wrap:wrap; }
-    .btn {
-      font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
-      text-decoration:none; padding:.7rem 1.5rem; border-radius:2px; transition:all .2s; display:inline-block; cursor:pointer;
-    }
-    .btn-primary { background:var(--accent); color:var(--bg); border:1px solid var(--accent); }
-    .btn-primary:hover { background:var(--accent-hl); border-color:var(--accent-hl); }
-    .btn-ghost { background:transparent; color:var(--text2); border:1px solid var(--border); }
-    .btn-ghost:hover { border-color:var(--text2); color:var(--text); }
+    /* ── ABOUT (top of page) ── */
+    #about .s-wrap { padding-top:max(9rem,18vh); }
 
     /* ── PROJECTS ── */
     .project { margin-bottom:3rem; padding-bottom:3rem; border-bottom:1px solid var(--border); }
@@ -257,13 +236,11 @@
     /* ── MOBILE ── */
     @media (max-width:700px) {
       .s-wrap { padding:5rem 1.5rem; }
-      #hero .s-wrap { padding-top:6rem; }
+      #about .s-wrap { padding-top:6rem; }
       .s-inner { grid-template-columns:1fr; }
       .s-label { display:none; }
       body { cursor:auto; }
       #cur-dot,#cur-ring { display:none; }
-      h1.hero-name { font-size:2.2rem; }
-      .hero-cta { flex-direction:column; }
       #game-canvas { height:220px; }
     }
   </style>
@@ -282,11 +259,10 @@
 <!-- Sidebar overlay + sidebar -->
 <div id="sidebar-overlay"></div>
 <nav id="sidebar" aria-label="Site navigation">
-  <a href="#hero" id="nav-brand">ET</a>
+  <a href="#about" id="nav-brand">ET</a>
   <ul id="nav-links" role="list">
-    <li><a href="#hero"     class="nav-link active" data-s="hero">home</a></li>
+    <li><a href="#about"    class="nav-link active" data-s="about">about</a></li>
     <li><a href="#projects" class="nav-link"         data-s="projects">projects</a></li>
-    <li><a href="#about"    class="nav-link"         data-s="about">about</a></li>
     <li><a href="#writing"  class="nav-link"         data-s="writing">writing</a></li>
     <li><a href="#contact"  class="nav-link"         data-s="contact">contact</a></li>
   </ul>
@@ -295,18 +271,35 @@
 
 <main>
 
-  <!-- ══ HERO ══ -->
-  <section id="hero">
+  <!-- ══ ABOUT ══ -->
+  <section id="about">
     <div class="s-wrap">
-      <p class="hero-eyebrow">cs + math + global affairs</p>
-      <h1 class="hero-name">Emily<br><em>Tian.</em></h1>
-      <p class="hero-bio">
-        I'm a sophomore at Yale building things at the intersection of code, data, and the world.
-        <!-- [ Edit this ] -->
-      </p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">see my work ↓</a>
-        <a href="mailto:e.tian@yale.edu" class="btn btn-ghost">say hello →</a>
+      <div class="s-inner">
+        <div class="s-label"><span>about</span></div>
+        <div>
+          <!-- Swap for: <img src="photo.jpg" alt="Emily Tian" class="about-photo"> -->
+          <div class="about-photo-placeholder">
+            <span>photo.jpg</span><span>[ swap me ]</span>
+          </div>
+          <div class="about-text">
+            <p>I'm Emily — a sophomore at Yale double-majoring in CS &amp; Math and Global Affairs.
+            I like building things that are useful, understanding things that are complicated,
+            and occasionally doing both at once.</p>
+            <p>Right now I'm developing a mobile app for system-involved youth, doing research on COVID-19
+            policy data at Yale SOM, and giving campus tours when the weather cooperates.
+            Previously I spent a summer at Capital Fund Management.</p>
+            <p>Outside of that: I play cello (and the charmingly niche viola da gamba), have strong opinions
+            about SET strategy, and am always up for a long walk somewhere with a good view at the top.</p>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-item">Python</div>
+            <div class="skill-item">Java / C / C++</div>
+            <div class="skill-item">React / JavaScript</div>
+            <div class="skill-item">Pandas / NumPy</div>
+            <div class="skill-item">Tableau</div>
+            <div class="skill-item">data analysis</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -368,39 +361,6 @@
               <span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">NLP</span><span class="tag">Tableau</span>
             </div>
           </article>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ ABOUT ══ -->
-  <section id="about">
-    <div class="s-wrap">
-      <div class="s-inner">
-        <div class="s-label"><span>about</span></div>
-        <div>
-          <!-- Swap for: <img src="photo.jpg" alt="Emily Tian" class="about-photo"> -->
-          <div class="about-photo-placeholder">
-            <span>photo.jpg</span><span>[ swap me ]</span>
-          </div>
-          <div class="about-text">
-            <p>I'm Emily — a sophomore at Yale double-majoring in CS &amp; Math and Global Affairs.
-            I like building things that are useful, understanding things that are complicated,
-            and occasionally doing both at once.</p>
-            <p>Right now I'm developing a mobile app for system-involved youth, doing research on COVID-19
-            policy data at Yale SOM, and giving campus tours when the weather cooperates.
-            Previously I spent a summer at Capital Fund Management.</p>
-            <p>Outside of that: I play cello (and the charmingly niche viola da gamba), have strong opinions
-            about SET strategy, and am always up for a long walk somewhere with a good view at the top.</p>
-          </div>
-          <div class="skills-grid">
-            <div class="skill-item">Python</div>
-            <div class="skill-item">Java / C / C++</div>
-            <div class="skill-item">React / JavaScript</div>
-            <div class="skill-item">Pandas / NumPy</div>
-            <div class="skill-item">Tableau</div>
-            <div class="skill-item">data analysis</div>
-          </div>
         </div>
       </div>
     </div>
